@@ -131,8 +131,12 @@ export default {
         });
     },
     getCategories() {
+      // CategoryController::getCategories() returns a Laravel Resource
+      // collection, which wraps its payload in "data" -- not "categories".
+      // This was reading undefined, silently breaking the category picker
+      // on both pages that use this component.
       this.$axios.get("categories").then((response) => {
-        this.categories = response.data.categories;
+        this.categories = response.data.data;
       });
     },
     addCategory(event) {

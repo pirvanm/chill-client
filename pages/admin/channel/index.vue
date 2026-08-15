@@ -169,19 +169,4 @@ export default {
   margin-top: 0%;
   margin-right: 5%;
 }
-.category {
-  margin-top: 20px;
-}
-div select {
-  margin-top: 15px;
-}
-.cat {
-  margin-top: 30px;
-}
-.sub {
-  margin-top: 40px;
-}
-select.category {
-  margin-top: 50px;
-}
 </style>
