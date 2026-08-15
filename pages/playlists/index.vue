@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import newFooter from "@/components/newFooter";
 import newLeftBar from "@/components/newLeftBar";
 import search from "@/components/Search";
 import CategoryGrid from "@/components/playlists/CategoryGrid";
@@ -72,7 +71,6 @@ import FilterRadioGroup from "@/components/playlists/FilterRadioGroup";
 export default {
   components: {
     newLeftBar,
-    newFooter,
     search,
     CategoryGrid,
     FilterRadioGroup,

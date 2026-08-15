@@ -63,13 +63,7 @@
 </template>
 
 <script>
-import newLeftBar from "@/components/newLeftBar";
-import search from "@/components/Search";
 export default {
-  components: {
-    newLeftBar,
-    search,
-  },
   props: ["vid", "vids", "categories"],
   data() {
     return {
