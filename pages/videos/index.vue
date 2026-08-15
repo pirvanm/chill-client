@@ -60,15 +60,11 @@
 </template>
 
 <script>
-import newFooter from "@/components/newFooter";
 import newLeftBar from "@/components/newLeftBar";
 import search from "@/components/Search";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 export default {
   components: {
     newLeftBar,
-    newFooter,
     search,
   },
   async asyncData({ $axios, params }) {
@@ -85,97 +81,6 @@ export default {
 </script>
 
 <style scoped>
-.amb {
-  background: url("~assets/category/ambient.jpg");
-}
-.med {
-  background: url("~assets/category/meditation.jpg");
-}
-.hop {
-  background: url("~assets/category/chillhop.jpg");
-}
-.out {
-  background: url("~assets/category/chillout.jpg");
-}
-.game {
-  background: url("~assets/category/gaming.jpg");
-}
-.step {
-  background: url("~assets/category/step.jpg");
-}
-.Classic {
-  background: url("~assets/category/Classic.jpeg");
-}
-.babe {
-  background: url("~assets/category/babe.jpg");
-}
-.down {
-  background: url("~assets/category/down.jpeg");
-}
-
-.lofih {
-  background: url("~assets/category/lo-fi.jpeg");
-}
-
-.lo-hi {
-  background: url("~assets/category/lo-hi.jpeg");
-}
-.lo-ho {
-  background: url("~assets/category/lo-ho.jpeg");
-}
-
-.regional-r {
-  background: url("~assets/category/regional.jpg");
-}
-.africa {
-  background: url("~assets/category/africa.jpg");
-}
-
-.china {
-  background: url("~assets/category/china.jpeg");
-}
-
-.france {
-  background: url("~assets/category/france.jpeg");
-}
-.india {
-  background: url("~assets/category/indian.jpeg");
-}
-.italy {
-  background: url("~assets/category/italy.jpg");
-}
-
-.japan {
-  background: url("~assets/category/japan.jpeg");
-}
-
-.spain {
-  background: url("~assets/category/spain.jpg");
-}
-
-.lounges {
-  background: url("~assets/category/lounge.jpeg");
-}
-
-.tec {
-  background: url("~assets/category/tec.jpeg");
-}
-
-.w {
-  background: url("~assets/category/w.jpeg");
-}
-.traps {
-  background: url("~assets/category/trap.jpeg");
-}
-
-.arabia {
-  background: url("~assets/category/arabia.jpg");
-}
-
-.rock {
-  background: url("~assets/category/rock.jpeg");
-}
-
 body {
   background: #0f2027;
   background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
