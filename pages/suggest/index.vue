@@ -84,12 +84,10 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-import SideBar from '@/components/SideS'
 import newLeftBar from "@/components/newLeftBar";
 export default {
     components: {
         Multiselect,
-        SideBar,
         newLeftBar
     },
   //  middleware: ["auth"],
@@ -147,8 +145,6 @@ export default {
                 });
         },
         getSubCategoryWithCategory(event) {
-            console.log(event.id);
-
             this.$axios
                 .get(`/subcategories-with-category/${event.id}`)
                 .then(response => {
