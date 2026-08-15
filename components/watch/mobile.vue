@@ -76,15 +76,6 @@ export default {
       innerWidth: 0,
       loop: false,
       isPlay: true,
-      isPause: false,
-      showModal: false,
-      isAdmin: false,
-      nextSongText: "Next Song Are comming",
-      busy: false,
-      playlists: [],
-      form: {
-        name: "",
-      },
       playerVars: {
         autoplay: 1,
         modestbranding: 0,
@@ -92,11 +83,6 @@ export default {
         controls: 1,
       },
       url: "",
-      // vid: {},
-      tagvids: [],
-      update: {
-        category: 1,
-      },
     };
   },
 
@@ -120,10 +106,8 @@ export default {
     },
   },
   mounted() {
-    this.getPlaylist();
     this.url = window.location.href;
     this.addToHistory();
-    this.checkAdmin();
   },
   created() {
     if (process.browser) {
@@ -148,27 +132,6 @@ export default {
     triggerLoop() {
       this.loop = !this.loop;
     },
-    checkAdmin() {
-      if (this.$auth.loggedIn) {
-        this.isAdmin = this.$auth.user.isAdmin;
-      }
-    },
-    // autoplay: 1,
-    clickTags(id) {
-      this.$axios
-        .post("/tag/get-videos", {
-          id: id,
-        })
-        .then((response) => {
-          // this.$router.push(
-          //     `/watch?v=${this.$route.query.v}&tag=${id}` <--- this not work because there is watch handler
-          // );
-
-          this.tagvids = response.data.videos;
-          this.nextSongText = `Comming next from ${response.data.tag.name} Tag`;
-        });
-    },
-
     play() {
       this.isPlay = !this.isPlay;
       if (this.isPlay) {
@@ -184,59 +147,6 @@ export default {
       this.$router.push(this.routeToLang(`/watch?v=${this.vids[0].videoId}`));
       // this.player.playVideo();
     },
-    lastVideo() {
-      //this.$router.pop(`/watch/${this.vids[0].videoId}`);
-      // this.player.playVideo();
-    },
-    getPlaylist() {
-      this.$axios.get("/playlists").then((response) => {
-        this.playlists = response.data.data;
-      });
-    },
-    createNewPlaylist() {
-      this.$bvModal.show(`create-playlist`);
-    },
-    savePlaylist() {
-      this.busy = true;
-      this.$axios
-        .post("/playlists", {
-          name: this.form.name,
-        })
-        .then((response) => {
-          this.busy = false;
-          this.getPlaylist();
-        });
-    },
-    updateVideo(index) {
-      this.$bvModal.show(`modal-${index}v`);
-    },
-    saveCategory(video, modal) {
-      this.$axios
-        .post("save-category-to-video", {
-          vid: video,
-          category: this.update.category,
-        })
-        .then((response) => {
-          this.$bvModal.hide(modal);
-        });
-    },
-    deleteVideo(id, watch, index) {
-      this.$axios.delete(`/delete-video/${id}`).then((response) => {
-        if (watch === "watch") {
-          this.nextVideo();
-        } else {
-          this.vids.splice(index, 1);
-        }
-      });
-    },
-    AddVideoToPlayList(slug) {
-      this.$axios
-        .post("/add-to-playlists", {
-          playlist: slug,
-          video: this.$route.params.id,
-        })
-        .then((response) => {});
-    },
     gotoWatch(v) {
       window.scrollTo(0, 0);
       this.$router.push(this.routeToLang(`/watch?v=${v}`));
@@ -245,10 +155,6 @@ export default {
         this.vids = response.data.videos;
       });
       this.addToHistory();
-    },
-    toggleSidebar() {
-      const sidebar = document.querySelector(".sidebar");
-      sidebar.classList.toggle("shown");
     },
     addToHistory() {
       var data = this.vid;
@@ -273,10 +179,6 @@ export default {
 .card {
   background-color: transparent;
   background-color: none;
-}
-.card {
-  background-color: transparent;
-  background-color: none;
   border: none;
 }
 .card-body h4,
@@ -294,19 +196,6 @@ export default {
 
 p {
   color: red;
-}
-
-.card {
-  background-color: transparent;
-  background-color: none;
-}
-.card-body h4,
-.card-body p {
-  font-size: bold;
-  color: #dadada;
-}
-.card-body p {
-  color: purple;
 }
 
 /*  YT BAR */
@@ -389,14 +278,6 @@ p {
   cursor: pointer;
   color: #d303fc;
 }
-.cursor {
-  cursor: pointer;
-}
-
-.next-list h1 {
-  padding-top: 20px;
-}
-
 .cursor {
   cursor: pointer;
 }
