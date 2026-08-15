@@ -7,140 +7,12 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-md-3 text-center border pr-2 mr-2">
-            <h1>Filters</h1>
-
-            <div class="form-group col-md-12 pr-2 mr-2">
-              <h1 for="inputState">#1 Filter Pick a Category</h1>
-              <select
-                id="inputState"
-                class="form-control"
-                v-model="filter.category"
-              >
-                <option selected value="">Choose...</option>
-
-                <option
-                  v-for="cat in categories.data"
-                  :key="cat.id"
-                  :value="cat.category_name"
-                >
-                  {{ cat.category_name }}
-                </option>
-              </select>
-            </div>
-            <label for="inputState">#2 Pick Duration</label>
-            <br /><br />
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                :value="1"
-                v-model="filter.duration"
-              />
-              <label class="form-check-label" for="inlineRadio1">1</label>
-            </div>
-            <br /><br />
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                :value="2"
-                v-model="filter.duration"
-              />
-              <label class="form-check-label" for="inlineRadio2">2</label>
-            </div>
-            <br /><br />
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                :value="3"
-                v-model="filter.duration"
-              />
-              <label class="form-check-label" for="inlineRadio3">3</label>
-            </div>
-            <br /><br />
-            <div class="form-check form-check-inline">
-              <br />
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio4"
-                :value="4"
-                v-model="filter.duration"
-              />
-              <label class="form-check-label" for="inlineRadio3">4</label>
-            </div>
-            <br /><br />
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio5"
-                :value="5"
-                v-model="filter.duration"
-              />
-              <label class="form-check-label" for="inlineRadio3">5</label>
-            </div>
-            <br /><br />
-
-            <form>
-              <div class="form-group">
-                <label for="inputState">#3 Chouse Number of Views</label>
-                <client-only>
-                  <vue-slider
-                    v-model="range.views"
-                    :min="range.min"
-                    :max="range.max"
-                    @change="changeSlider"
-                  ></vue-slider>
-                </client-only>
-                <div class="row">
-                  <input
-                    class="col-md-6 form-control pb-2"
-                    type="number"
-                    v-model="range.views[0]"
-                    @input="changeSlider"
-                  />
-                  <br /><br />
-                  <input
-                    class="col-md-6 form-control"
-                    type="number"
-                    v-model="range.views[1]"
-                    @input="changeSlider"
-                  />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="inputState">#4 Type a Title</label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  id="title"
-                  v-model="filter.title"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="inputState">#5 Type a Tagg</label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  id="tagg"
-                  v-model="filter.tag"
-                />
-              </div>
-            </form>
+            <VideoFilterPanel
+              :categories="categories.data"
+              :filter="filter"
+              :range="range"
+              @change="changeSlider"
+            />
           </div>
 
           <div class="col-md-4 border pr-2">
@@ -185,47 +57,12 @@
           </div>
 
           <div class="col-md-4 border ml-2">
-            <h1>List of posible Songs / count({{ videos.meta.total }})</h1>
-            <hr />
-            <client-only>
-              <draggable class="list-group" :list="videos.data" group="video">
-                <div
-                  class="list-group-item"
-                  v-for="video in videos.data"
-                  :key="video.title"
-                >
-                  Title: {{ video.title }} Views: {{ video.views }} Duration
-                  {{ video.duration }} Type: {{ video.type_duration }}
-                  <div>
-                    <button @click.prevent="previewImage = video.thumbnail">
-                      Cover Me
-                    </button>
-                    <br />
-                    See Video
-
-                    <button class="btn btn-sm btn-info btn-block mt-1">
-                      <a :href="'/watch/' + video.videoId" target="_blank"
-                        >See Video with id : {{ video.videoId }}</a
-                      >
-                      <a :href="'  video.thumbnail'" target="_blank"
-                        >See Video Image: {{ video.videoId }}</a
-                      >
-                    </button>
-                  </div>
-                </div>
-              </draggable>
-            </client-only>
-
-            <client-only placeholder="Loading...">
-              <pagination
-                v-model="videos.meta.current_page"
-                :records="videos.meta.total"
-                @paginate="myCallback"
-                :per-page="videos.meta.per_page"
-                :chunk="3"
-                chunksNavigation="fixed"
-              />
-            </client-only>
+            <VideoBrowser
+              :videos="videos"
+              show-cover-button
+              @cover="previewImage = $event"
+              @paginate="myCallback"
+            />
           </div>
         </div>
       </div>
@@ -236,6 +73,8 @@
 <script>
 import Swal from "sweetalert2";
 import menuAdmin from "@/components/MenuAdmin";
+import VideoFilterPanel from "@/components/admin/VideoFilterPanel";
+import VideoBrowser from "@/components/admin/VideoBrowser";
 export default {
   async asyncData({ query, params, error, $axios }) {
     const videos = await $axios.$get(`/admin/videos`);
@@ -261,12 +100,12 @@ export default {
   middleware: ["admin"],
   components: {
     menuAdmin,
+    VideoFilterPanel,
+    VideoBrowser,
   },
-  mounted() {},
   data() {
     return {
       timer: null,
-      right: [],
       left: [],
       filter: {
         category: "",
@@ -301,7 +140,6 @@ export default {
           this.previewImage = e.target.result;
         };
         reader.readAsDataURL(file[0]);
-        // this.$emit("input", file[0]);
       }
     },
     savePlaylists() {
