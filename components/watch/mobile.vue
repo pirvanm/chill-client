@@ -63,12 +63,10 @@
 </template>
 
 <script>
-import SideBar from "@/components/SideBar";
 import newLeftBar from "@/components/newLeftBar";
 import search from "@/components/Search";
 export default {
   components: {
-    SideBar,
     newLeftBar,
     search,
   },

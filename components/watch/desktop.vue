@@ -28,46 +28,15 @@
                   </nuxt-link>
                 </div>
 
-                <div class="d-flex mb-5" v-if="isAdmin">
-                  <b-modal
-                    :id="`modal-primary`"
-                    title="BootstrapVue"
-                    hide-footer
-                  >
-                    <h1>Update Category of this video</h1>
-                    <select v-model="update.category">
-                      <option
-                        v-for="(cat, cindex) in categories"
-                        :key="`cat-${cindex}`"
-                        :value="cat.id"
-                      >
-                        {{ cat.category_name }}
-                      </option>
-                    </select>
-
-                    <button
-                      class="btn btn-sm btn-success"
-                      @click.prevent="saveCategory(vid.id, 'modal-primary')"
-                    >
-                      Save
-                    </button>
-                  </b-modal>
-                  <button
-                    class="btn btn-primary"
-                    @click.prevent="$bvModal.show(`modal-primary`)"
-                  >
-                    Update
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-danger ml-2 btn-sm"
-                    data-dismiss="modal"
-                    @click.prevent="deleteVideo(vid.id, 'watch', 0)"
-                  >
-                    Remove
-                  </button>
-                </div>
+                <AdminVideoModal
+                  v-if="isAdmin"
+                  modal-id="modal-primary"
+                  :categories="categories"
+                  :update="update"
+                  small
+                  @save-category="saveCategory(vid.id, 'modal-primary')"
+                  @delete="deleteVideo(vid.id, 'watch', 0)"
+                />
 
                 <h3 class="title mt-3 pt-2 pb-3">{{ vid.title }}</h3>
 
@@ -118,50 +87,15 @@
                   :key="`${index}v`"
                   @click.prevent="gotoWatch(v.videoId)"
                 >
-                  <div class="d-flex mb-5" v-if="isAdmin">
-                    <b-modal
-                      :id="`modal-${index}v`"
-                      title="BootstrapVue"
-                      hide-footer
-                    >
-                      <h1>Update Category of this video</h1>
-                      <select v-model="update.category">
-                        <option
-                          v-for="(cat, cindex) in categories"
-                          :key="`cat-${cindex}`"
-                          :value="cat.id"
-                        >
-                          {{ cat.category_name }}
-                        </option>
-                      </select>
-
-                      <button
-                        class="btn btn-sm btn-success"
-                        @click.prevent="saveCategory(v.id, `modal-${index}v`)"
-                      >
-                        Save
-                      </button>
-                    </b-modal>
-
-                    <button
-                      class="btn btn-primary"
-                      @click.prevent="updateVideo(index)"
-                    >
-                      Update
-                    </button>
-
-                    <button
-                      type="button"
-                      class="btn btn-danger ml-2"
-                      data-dismiss="modal"
-                      @click.prevent="deleteVideo(v.id, 'category', index)"
-                    >
-                      Remove
-                    </button>
-                    <button type="button" class="btn btn-info ml-2">
-                      {{ v.category.category_name }}
-                    </button>
-                  </div>
+                  <AdminVideoModal
+                    v-if="isAdmin"
+                    :modal-id="`modal-${index}v`"
+                    :categories="categories"
+                    :update="update"
+                    :category-label="v.category.category_name"
+                    @save-category="saveCategory(v.id, `modal-${index}v`)"
+                    @delete="deleteVideo(v.id, 'category', index)"
+                  />
                   <img :src="v.thumbnail" />
                   <p class="title">{{ v.title }}</p>
                 </div>
@@ -175,14 +109,14 @@
 </template>
 
 <script>
-import SideBar from "@/components/SideBar";
 import newLeftBar from "@/components/newLeftBar";
 import search from "@/components/Search";
+import AdminVideoModal from "@/components/watch/AdminVideoModal";
 export default {
   components: {
-    SideBar,
     newLeftBar,
     search,
+    AdminVideoModal,
   },
   props: ["vid", "vids", "categories"],
   data() {
@@ -321,9 +255,6 @@ export default {
           this.getPlaylist();
         });
     },
-    updateVideo(index) {
-      this.$bvModal.show(`modal-${index}v`);
-    },
     saveCategory(video, modal) {
       this.$axios
         .post("save-category-to-video", {
@@ -386,10 +317,6 @@ export default {
 .card {
   background-color: transparent;
   background-color: none;
-}
-.card {
-  background-color: transparent;
-  background-color: none;
   border: none;
 }
 .card-body h4,
@@ -407,19 +334,6 @@ export default {
 
 p {
   color: red;
-}
-
-.card {
-  background-color: transparent;
-  background-color: none;
-}
-.card-body h4,
-.card-body p {
-  font-size: bold;
-  color: #dadada;
-}
-.card-body p {
-  color: purple;
 }
 
 /*  YT BAR */
@@ -501,14 +415,6 @@ p {
   cursor: pointer;
   color: #d303fc;
 }
-.cursor {
-  cursor: pointer;
-}
-
-.next-list h1 {
-  padding-top: 20px;
-}
-
 .cursor {
   cursor: pointer;
 }
