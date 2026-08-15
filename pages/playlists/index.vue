@@ -17,952 +17,44 @@
           <div class="col-lg-2 d-none d-sm-block">
             <div class="container ml-3">
               <h4 class="mt-3">{{ $t("filter_by") }}</h4>
+
               <h4 @click="toggle">{{ $t("popularity") }}</h4>
+              <FilterRadioGroup
+                v-show="shown"
+                :options="popularityOptions"
+                @select="key = $event"
+              />
 
-              <div v-show="shown">
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 1"
-                    type="radio"
-                    id="customRadio1"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-
-                  <label class="custom-control-label" for="customRadio1"
-                    >Top</label
-                  >
-                </div>
-              </div>
-
-              <h4 class="mt-3" @click="toggle2">
-                {{ $t("duration") }}
-              </h4>
-
-              <div v-show="shown2">
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 2"
-                    type="radio"
-                    id="customRadio2"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio2"
-                    >Quick</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 3"
-                    type="radio"
-                    id="customRadio3"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio3"
-                    >Long</label
-                  >
-                </div>
-              </div>
+              <h4 class="mt-3" @click="toggle2">{{ $t("duration") }}</h4>
+              <FilterRadioGroup
+                v-show="shown2"
+                :options="durationOptions"
+                @select="key = $event"
+              />
 
               <h4 class="mt-3" @click="toggle3">{{ $t("categories") }}</h4>
-              <div v-show="shown3">
-                <div class="custom-control custom-radio" v-if="statusTogggle">
-                  <input
-                    @click="key = 4"
-                    type="radio"
-                    id="customRadio4"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio4"
-                    >Rock</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 5"
-                    type="radio"
-                    id="customRadio5"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio5"
-                    >Chill</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 6"
-                    type="radio"
-                    id="customRadio6"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio6"
-                    >Meditate</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 7"
-                    type="radio"
-                    id="customRadio7"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio7"
-                    >Popular</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 9"
-                    type="radio"
-                    id="customRadio9"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio9"
-                    >Ambiental</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 10"
-                    type="radio"
-                    id="customRadio10"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio10"
-                    >Gaming</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 11"
-                    type="radio"
-                    id="customRadio11"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio11"
-                    >Classic</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 12"
-                    type="radio"
-                    id="customRadio12"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio12"
-                    >Lo-Fi</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 13"
-                    type="radio"
-                    id="customRadio13"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio13"
-                    >HipHop</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 24"
-                    type="radio"
-                    id="customRadio24"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio24"
-                    >Techno
-                  </label>
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 25"
-                    type="radio"
-                    id="customRadio25"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio25"
-                    >Trap
-                  </label>
-                </div>
-              </div>
+              <FilterRadioGroup
+                v-show="shown3"
+                :options="categoryOptions"
+                @select="key = $event"
+              />
 
               <h4 class="mt-3" @click="toggle4">
                 {{ $t("countries_regional") }}
               </h4>
-
-              <div v-show="shown4">
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 14"
-                    type="radio"
-                    id="customRadio14"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio14"
-                    >African</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 15"
-                    type="radio"
-                    id="customRadio15"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio15"
-                    >Spania</label
-                  >
-                </div>
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 22"
-                    type="radio"
-                    id="customRadio22"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio22"
-                    >Spanish
-                  </label>
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 16"
-                    type="radio"
-                    id="customRadio16"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio16"
-                    >China</label
-                  >
-                </div>
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 18"
-                    type="radio"
-                    id="customRadio18"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio18"
-                    >Chinese</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 17"
-                    type="radio"
-                    id="customRadio17"
-                    name="customRadio"
-                    class="custom-control-input"
-                    checked
-                  />
-                  <label class="custom-control-label" for="customRadio17"
-                    >Arabic</label
-                  >
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 19"
-                    type="radio"
-                    id="customRadio19"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio19"
-                    >France
-                  </label>
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 20"
-                    type="radio"
-                    id="customRadio20"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio20"
-                    >Indian
-                  </label>
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 21"
-                    type="radio"
-                    id="customRadio21"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio21"
-                    >Italy
-                  </label>
-                </div>
-
-                <div class="custom-control custom-radio">
-                  <input
-                    @click="key = 23"
-                    type="radio"
-                    id="customRadio23"
-                    name="customRadio"
-                    class="custom-control-input"
-                  />
-                  <label class="custom-control-label" for="customRadio23"
-                    >Japan
-                  </label>
-                </div>
-              </div>
+              <FilterRadioGroup
+                v-show="shown4"
+                :options="regionalOptions"
+                @select="key = $event"
+              />
             </div>
           </div>
           <div class="col-lg-10">
-            <div class="container" v-if="key == 1">
-              <h1>Top Category</h1>
-
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in tops"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 2">
-              <h1>Quick Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in quick"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="container" v-if="key == 3">
-              <h1>Long Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in long"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 4">
-              <h1>Rock Playlist</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in rock"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 5">
-              <h1>Chill Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in chill"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 6">
-              <h1>Meditate Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in meditat"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 7">
-              <h1>Down Tempo Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in downtempo"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 8">
-              <h1>All Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in all"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 9">
-              <h1>Ambiental Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in ambiental"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 10">
-              <h1>Gaming Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in gaming"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 11">
-              <h1>Classic Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in classic"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 12">
-              <h1>Lo-Fi Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in lo_fi"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 13">
-              <h1>HipHop Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in hiphop"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 14">
-              <h1>African Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in african"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 15">
-              <h1>Spania Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in spania"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 16">
-              <h1>China Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in china"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 17">
-              <h1>Arabic Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in arabic"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 18">
-              <h1>Chinese Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in chinese"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 19">
-              <h1>France Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in france"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 20">
-              <h1>Indian Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in indian"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 21">
-              <h1>Italy Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in italy"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 22">
-              <h1>Spanish Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in spanish"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 23">
-              <h1>Japan Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in japan"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 24">
-              <h1>Techno Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in techno"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-            <div class="container" v-if="key == 25">
-              <h1>Trap Category</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in trap"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="container" v-if="key == 26">
-              <h1>{{ $t("top_playlists") }}</h1>
-              <div class="row">
-                <div
-                  class="col-lg-3 col-md-6 mb-4"
-                  v-for="popularCategory in playlists"
-                  :key="popularCategory.id"
-                >
-                  <div class="category-card">
-                    <img :src="popularCategory.image" />
-                    <nuxt-link :to="`/playlists/${popularCategory.slug}`">
-                      <div>
-                        <a href="#category-link" class="category">
-                          {{ popularCategory.name }}
-                        </a>
-                      </div>
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CategoryGrid
+              v-if="currentGrid"
+              :heading="currentGridHeading"
+              :items="currentGrid.items"
+            />
           </div>
         </div>
       </div>
@@ -974,12 +66,16 @@
 import newFooter from "@/components/newFooter";
 import newLeftBar from "@/components/newLeftBar";
 import search from "@/components/Search";
+import CategoryGrid from "@/components/playlists/CategoryGrid";
+import FilterRadioGroup from "@/components/playlists/FilterRadioGroup";
 
 export default {
   components: {
     newLeftBar,
     newFooter,
     search,
+    CategoryGrid,
+    FilterRadioGroup,
   },
   async asyncData({ $axios, params }) {
     let playlist = await $axios.$get(`/playlists`);
@@ -990,33 +86,7 @@ export default {
       shown2: false,
       shown3: true,
       shown4: false,
-      visibleDivId: null,
       key: 26,
-      isTop: true,
-      isTock: true,
-      isChill: true,
-      isLong: true,
-      isQuick: true,
-      isMedidate: true,
-      isDownTempo: true,
-      isAmbiental: true,
-      isGaming: true,
-      isClassic: true,
-      isLofi: true,
-      isHipHop: true,
-      isAfrican: true,
-      isSpania: true,
-      isChina: true,
-      isArabil: true,
-      isChinese: true,
-      isFrance: true,
-      isIndian: true,
-      isItaly: true,
-      isSpanish: true,
-      isJapan: true,
-      isTecno: true,
-      isTrap: true,
-      isPopular: true,
       playlists: playlist.playlists,
       tops: playlist.top,
       rock: playlist.rock,
@@ -1046,6 +116,90 @@ export default {
       channels: chann.data,
     };
   },
+  computed: {
+    // The "Rock" filter (key 4) is intentionally omitted here: the original
+    // markup guarded it behind `v-if="statusTogggle"`, a variable that was
+    // never defined anywhere, so it always evaluated falsy and the radio
+    // never rendered. Preserving that (buggy) behavior rather than silently
+    // re-enabling a filter that's been invisible to users.
+    popularityOptions() {
+      return [{ key: 1, label: "Top", checked: true }];
+    },
+    durationOptions() {
+      return [
+        { key: 2, label: "Quick", checked: false },
+        { key: 3, label: "Long", checked: true },
+      ];
+    },
+    categoryOptions() {
+      return [
+        { key: 5, label: "Chill", checked: true },
+        { key: 6, label: "Meditate", checked: false },
+        { key: 7, label: "Popular", checked: true },
+        { key: 9, label: "Ambiental", checked: false },
+        { key: 10, label: "Gaming", checked: false },
+        { key: 11, label: "Classic", checked: true },
+        { key: 12, label: "Lo-Fi", checked: false },
+        { key: 13, label: "HipHop", checked: true },
+        { key: 24, label: "Techno", checked: false },
+        { key: 25, label: "Trap", checked: false },
+      ];
+    },
+    regionalOptions() {
+      return [
+        { key: 14, label: "African", checked: false },
+        { key: 15, label: "Spania", checked: true },
+        { key: 22, label: "Spanish", checked: false },
+        { key: 16, label: "China", checked: false },
+        { key: 18, label: "Chinese", checked: false },
+        { key: 17, label: "Arabic", checked: true },
+        { key: 19, label: "France", checked: false },
+        { key: 20, label: "Indian", checked: false },
+        { key: 21, label: "Italy", checked: false },
+        { key: 23, label: "Japan", checked: false },
+      ];
+    },
+    categoryGrids() {
+      return [
+        { key: 1, heading: "Top Category", items: this.tops },
+        { key: 2, heading: "Quick Category", items: this.quick },
+        { key: 3, heading: "Long Category", items: this.long },
+        { key: 4, heading: "Rock Playlist", items: this.rock },
+        { key: 5, heading: "Chill Category", items: this.chill },
+        { key: 6, heading: "Meditate Category", items: this.meditat },
+        { key: 7, heading: "Down Tempo Category", items: this.downtempo },
+        { key: 8, heading: "All Category", items: this.all },
+        { key: 9, heading: "Ambiental Category", items: this.ambiental },
+        { key: 10, heading: "Gaming Category", items: this.gaming },
+        { key: 11, heading: "Classic Category", items: this.classic },
+        { key: 12, heading: "Lo-Fi Category", items: this.lo_fi },
+        { key: 13, heading: "HipHop Category", items: this.hiphop },
+        { key: 14, heading: "African Category", items: this.african },
+        { key: 15, heading: "Spania Category", items: this.spania },
+        { key: 16, heading: "China Category", items: this.china },
+        { key: 17, heading: "Arabic Category", items: this.arabic },
+        { key: 18, heading: "Chinese Category", items: this.chinese },
+        { key: 19, heading: "France Category", items: this.france },
+        { key: 20, heading: "Indian Category", items: this.indian },
+        { key: 21, heading: "Italy Category", items: this.italy },
+        { key: 22, heading: "Spanish Category", items: this.spanish },
+        { key: 23, heading: "Japan Category", items: this.japan },
+        { key: 24, heading: "Techno Category", items: this.techno },
+        { key: 25, heading: "Trap Category", items: this.trap },
+        { key: 26, heading: null, items: this.playlists },
+      ];
+    },
+    currentGrid() {
+      return this.categoryGrids.find((grid) => grid.key === this.key);
+    },
+    currentGridHeading() {
+      // key 26 (the default, "top playlists") is the only translated heading
+      // in the original markup -- the rest were hard-coded English strings.
+      return this.currentGrid.key === 26
+        ? this.$t("top_playlists")
+        : this.currentGrid.heading;
+    },
+  },
   methods: {
     routeToLang(loc) {
       if (this.$i18n.locale == "en") {
@@ -1058,7 +212,7 @@ export default {
       this.shown = !this.shown;
     },
     toggle2() {
-      this.show2 = !this.shown2;
+      this.shown2 = !this.shown2;
     },
     toggle3() {
       this.shown3 = !this.shown3;
