@@ -77,7 +77,7 @@
                         :value="4"
                         v-model="filter.duration"
                     />
-                    <label class="form-check-label" for="inlineRadio3">4</label>
+                    <label class="form-check-label" for="inlineRadio4">4</label>
                 </div>
                 <br /><br />
                 <div class="form-check form-check-inline">
@@ -89,7 +89,7 @@
                         :value="5"
                         v-model="filter.duration"
                     />
-                    <label class="form-check-label" for="inlineRadio3">5</label>
+                    <label class="form-check-label" for="inlineRadio5">5</label>
                 </div>
                 <br /><br />
 </div>
@@ -219,7 +219,7 @@
                                         {{ video.videoId }}</a
                                     >
                                       <a
-                                        :href="'  video.thumbnail'"
+                                        :href="video.thumbnail"
                                         target="_blank"
                                         >See Video Image:
                                         {{ video.videoId }}</a
