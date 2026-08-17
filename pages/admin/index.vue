@@ -7,7 +7,6 @@
 <script>
 import menuAdmin from "@/components/MenuAdmin";
 export default {
-  layout: "MenuAdmin",
   middleware: ["admin"],
   components: {
     menuAdmin,

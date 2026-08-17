@@ -92,7 +92,6 @@ export default {
     Multiselect,
     menuAdmin,
   },
-  layout: "MenuAdmin",
   data() {
     return {
       errors: [],

@@ -23,7 +23,6 @@ export default {
     newLeftBar,
     VideoInsertForm,
   },
-  layout: "MenuAdmin",
 };
 </script>
 

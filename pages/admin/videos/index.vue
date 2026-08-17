@@ -21,7 +21,6 @@ export default {
     menuAdmin,
     VideoInsertForm,
   },
-  layout: "MenuAdmin",
   middleware: ["admin"],
 };
 </script>
